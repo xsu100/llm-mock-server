@@ -86,6 +86,39 @@ resp, _ := model.GenerateContent(ctx, genai.Text("Hello!"))
 - `POST /admin/rules`: Create a new rule.
 - `DELETE /admin/rules/:id`: Delete a rule.
 
+#### Admin API Examples
+
+**Create a Chat Rule (Keyword Match)**:
+```bash
+curl -X POST http://localhost:8080/admin/rules \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Joke Rule",
+  "type": "fixed",
+  "pattern": "joke",
+  "response": "{\"choices\":[{\"message\":{\"content\":\"Why did the AI cross the road? To reach the other side of the mock!\"}}]}",
+  "enabled": true
+}'
+```
+
+**Create a Vertex AI Rule (Regex Match)**:
+```bash
+curl -X POST http://localhost:8080/admin/rules \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Vertex Greeting",
+  "type": "regex",
+  "pattern": "hello.*gemini",
+  "response": "{\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"Greetings from Vertex Mock!\"}]}}]}",
+  "enabled": true
+}'
+```
+
+**List Rules**:
+```bash
+curl http://localhost:8080/admin/rules
+```
+
 ---
 
 ## 中文
@@ -169,3 +202,36 @@ resp, _ := model.GenerateContent(ctx, genai.Text("Hello!"))
 - `GET /admin/rules`：查看所有规则。
 - `POST /admin/rules`：创建新规则。
 - `DELETE /admin/rules/:id`：删除指定规则。
+
+#### 管理接口示例
+
+**创建聊天规则 (关键词匹配)**:
+```bash
+curl -X POST http://localhost:8080/admin/rules \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "笑话规则",
+  "type": "fixed",
+  "pattern": "笑话",
+  "response": "{\"choices\":[{\"message\":{\"content\":\"为什么大模型会过马路？为了去 Mock 服务器那头！\"}}]}",
+  "enabled": true
+}'
+```
+
+**创建 Vertex AI 规则 (正则匹配)**:
+```bash
+curl -X POST http://localhost:8080/admin/rules \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Vertex 问候",
+  "type": "regex",
+  "pattern": "你好.*gemini",
+  "response": "{\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"来自 Vertex Mock 的问候！\"}]}}]}",
+  "enabled": true
+}'
+```
+
+**获取所有规则**:
+```bash
+curl http://localhost:8080/admin/rules
+```
