@@ -43,6 +43,10 @@ A lightweight, high-performance LLM Mock Server built in Go. It simulates OpenAI
 #### Vertex AI Endpoints
 - `POST /v1/projects/:project/locations/:location/publishers/google/models/:model:generateContent`
 
+### 🧪 Testing
+
+For a comprehensive list of curl commands to test all endpoints, please refer to [test_commands.md](./test_commands.md).
+
 ### 📖 Vertex AI SDK Usage
 
 To use this server with Vertex AI SDKs, you need to override the default API endpoint.
@@ -159,6 +163,10 @@ curl http://localhost:8080/admin/rules
 
 #### Vertex AI 兼容接口
 - `POST /v1/projects/:project/locations/:location/publishers/google/models/:model:generateContent`
+
+### 🧪 测试指南
+
+有关测试所有接口的完整 curl 命令列表，请参阅 [test_commands.md](./test_commands.md)。
 
 ### 📖 Vertex AI SDK 使用指南
 
