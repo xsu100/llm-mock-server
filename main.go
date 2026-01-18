@@ -16,6 +16,10 @@ func main() {
 		log.Fatal("Failed to initialize store:", err)
 	}
 
+	if err := s.SeedDefaults(); err != nil {
+		log.Println("Warning: Failed to seed default rules:", err)
+	}
+
 	// Initialize Handlers
 	llm := handlers.NewLLMHandler(s)
 	admin := handlers.NewAdminHandler(s)

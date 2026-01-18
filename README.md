@@ -18,7 +18,19 @@ A lightweight, high-performance LLM Mock Server built in Go. It simulates OpenAI
 - **Persistence**: Rules are stored in a local SQLite database.
 - **Lightweight**: Zero external dependencies (CGO-free SQLite).
 
-### 🛠️ Quick Start
+### � Default Behavior
+
+When you first run the server, it automatically seeds the database with several default mock rules if it's empty. This allows you to test the server immediately without any configuration.
+
+#### Seeded Rules:
+| Name | Pattern | Type | Mock Response |
+|------|---------|------|---------------|
+| Default Greeting | `hello` | Fixed | A welcoming AI greeting |
+| Default Joke | `joke` | Fixed | A classic AI joke |
+| Default Status | `status` | Fixed | Mock system status report |
+| Vertex Default | `hello.*gemini` | Regex | Vertex AI specific greeting |
+
+### �🛠️ Quick Start
 
 1. **Build**:
    ```bash
@@ -138,6 +150,18 @@ curl http://localhost:8080/admin/rules
     - **随机返回**：从规则池中随机返回结果。
 - **本地持久化**：规则存储在本地 SQLite 数据库中。
 - **轻量化**：无外部重型依赖（使用纯 Go 实现的 SQLite）。
+
+### 💡 默认行为
+
+首次运行服务器时，如果数据库为空，它会自动预置一些默认的 Mock 规则。这让您可以无需任何配置即可立即开始测试。
+
+#### 预置规则：
+| 名称 | 匹配模式 | 模式 | Mock 响应内容 |
+|------|---------|------|---------------|
+| 默认问候 | `hello` | 固定匹配 | AI 的问候语 |
+| 默认笑话 | `joke` | 固定匹配 | 经典的 AI 笑话 |
+| 默认状态 | `status` | 固定匹配 | Mock 系统状态报告 |
+| Vertex 默认规则 | `hello.*gemini` | 正则匹配 | 针对 Vertex AI 的问候 |
 
 ### 🛠️ 快速开始
 

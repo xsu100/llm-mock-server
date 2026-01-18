@@ -111,3 +111,58 @@ func (s *Store) DeleteRule(id string) error {
 	_, err := s.db.Exec(query, id)
 	return err
 }
+
+func (s *Store) SeedDefaults() error {
+	var count int
+	err := s.db.QueryRow("SELECT COUNT(*) FROM rules").Scan(&count)
+	if err != nil {
+		return err
+	}
+
+	if count > 0 {
+		return nil // Already seeded
+	}
+
+	defaults := []models.MockRule{
+		{
+			ID:       "default-1",
+			Name:     "Default Greeting",
+			Type:     models.RuleTypeFixed,
+			Pattern:  "hello",
+			Response: `{"choices":[{"message":{"content":"Hello! I am your LLM Mock Server. How can I help you today?"}}]}`,
+			Enabled:  true,
+		},
+		{
+			ID:       "default-2",
+			Name:     "Default Joke",
+			Type:     models.RuleTypeFixed,
+			Pattern:  "joke",
+			Response: `{"choices":[{"message":{"content":"Why did the AI cross the road? To reach the other side of the mock server!"}}]}`,
+			Enabled:  true,
+		},
+		{
+			ID:       "default-3",
+			Name:     "Default Status",
+			Type:     models.RuleTypeFixed,
+			Pattern:  "status",
+			Response: `{"choices":[{"message":{"content":"System Status: All mock systems are operational. Cost saved: 100%."}}]}`,
+			Enabled:  true,
+		},
+		{
+			ID:       "default-4",
+			Name:     "Vertex Default",
+			Type:     models.RuleTypeRegex,
+			Pattern:  "hello.*gemini",
+			Response: `{"candidates":[{"content":{"parts":[{"text":"Hello from the Vertex AI Mock!"}]}}]}`,
+			Enabled:  true,
+		},
+	}
+
+	for _, r := range defaults {
+		if err := s.AddRule(&r); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
