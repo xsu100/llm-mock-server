@@ -1,0 +1,14 @@
+# Binaries
+*.exe
+mock-server
+
+# Databases
+*.db
+*.db-journal
+
+# Test data
+test_*.json
+rule_*.json
+
+# Logs
+*.log
